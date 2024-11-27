@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+
+<style>
+    body {
+        position: relative;
+        width: 1200px;
+        height: 540px;
+    }
+
+    #sudal {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        transition: all 0.5s ease;
+    }
+
+    #bbatta {
+        position: absolute;
+        width: 300px;
+        aspect-ratio: 1/1;
+        transition: transform 0.2s ease;
+
+        z-index: 1000;
+    }
+
+    #bbatta:active {
+        transform: rotate(-90deg);
+        transition: transform 0.1s ease;
+    }
+</style>
+
+<body>
+    <img id="bbatta" src="bbatta.png">
+    <img id="sudal" status="live" src="cute.jpeg"/>
+    <script>
+
+        $(document).ready(function () {
+
+            SwingBbatta();
+
+            moveBbatta();
+            
+            setInterval(moveSudal, 500);
+
+        });
+
+        let hitCnt = 0; // 때린횟수
+        let SwingPosition; // 적중위치
+
+        // 수달의 감정표현
+        function emote () {
+            const emotionOfSudal = $('#sudal').attr('status')
+            if(emotionOfSudal === 'angry1'){
+                $('#sudal').attr('src', 'angry1.jpg')
+            }else
+            if(emotionOfSudal === 'angry2'){
+                $('#sudal').attr('src', 'angry2.jpg');
+            }else
+            if(emotionOfSudal === 'angry3'){
+                $('#sudal').attr('src', 'angry3.jpg');
+            }else
+            if(emotionOfSudal === 'angry4'){
+                $('#sudal').attr('src', 'angry4.jpg');
+            }else
+            if(emotionOfSudal === 'down'){
+                $('#sudal').attr('src', 'down.png');
+            }else
+            if(emotionOfSudal === 'down'){
+                $('#sudal').attr('src', 'down.png');
+            }else
+            if(emotionOfSudal === 'down'){
+                $('#sudal').attr('src', 'down.png');
+            }else
+            if(emotionOfSudal === 'down'){
+                $('#sudal').attr('src', 'down.png');
+            }
+        }
+
+        // 수달의 위빙
+        function moveSudal() {
+
+            if ($('#sudal').attr('status') === 'down') {
+                setInterval(boodelboodle, 100);
+                return;
+            }
+            else {
+
+                console.log("움직움직");
+
+                const randomX = Math.random() * 100;
+                const randomY = Math.random() * 100;
+
+                $('#sudal').css({
+                    left: randomX + '%',
+                    top: randomY + '%',
+                });
+
+            } 
+            
+
+        }
+
+        // 결국 맞아버린 수달
+        function hit() {
+
+            console.log("아악!!");
+
+            $('#sudal').css({
+                transform: 'scale(0.7)',
+                transition: 'all 0.3s ease'
+            });
+
+            setTimeout(() => {
+                $('#sudal').css({
+                    transform: 'scale(1)',
+                    transition: 'all 0.3s ease'
+                });
+            }, 300);
+
+            hitCnt += 1;
+
+            if(hitCnt === 1){
+                $('#sudal').attr('status', 'angry1')
+            }else 
+            if (hitCnt === 2) {
+                $('#sudal').attr('status', 'angry2')
+            }else 
+            if (hitCnt === 3) {
+                $('#sudal').attr('status', 'angry3')
+            }else 
+            if (hitCnt === 4) {
+                $('#sudal').attr('status', 'angry4')
+            }else 
+            if (hitCnt === 5) {
+                $('#sudal').attr('status', 'down')
+            }else 
+            if (hitCnt === 6) {
+                $('#sudal').attr('status', 'down')
+            }else 
+            if (hitCnt === 7) {
+                $('#sudal').attr('status', 'down')
+            }else 
+            if (hitCnt === 8) {
+                $('#sudal').attr('status', 'down')
+            }else 
+            if (hitCnt === 9) {
+                $('#sudal').attr('status', 'down')
+            }else 
+            if (hitCnt === 10) {
+                $('#sudal').attr('status', 'down')
+            }
+
+            emote();
+
+        }
+
+        // 경기
+        function boodelboodle() {
+
+            const position = $('#sudal').offset().left;
+
+            $('#sudal').animate({
+                left: `${position + 200}px`
+            }, 100)
+            $('#sudal').animate({
+                left: `${position - 200}px`
+            }, 100);
+
+        }
+
+        // 빠따 마우스에 고정
+        function moveBbatta() {
+            $(document).on('mousemove', function(event){
+
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+
+                $('#bbatta').css({
+                    left: `${mouseX-150}px`
+                    , top: `${mouseY-150}px`
+                }, 1)
+
+            })
+        }
+
+        // 빠따 휘두르는 이벤트
+        function SwingBbatta () {
+            $('#bbatta').on('mousedown', function(event){
+
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+
+                const sudalPosition = $('#sudal').offset();
+                const sudalWidth = $('#sudal').width();
+                const sudalHeight = $('#sudal').height();
+
+                SwingPosition = {
+                    x: `${mouseX-150}`
+                    , y: `${mouseY+150}`
+                }
+
+                if (
+                    (SwingPosition.x >= sudalPosition.left && SwingPosition.x <= sudalPosition.left + sudalWidth) &&
+                    (SwingPosition.y >= sudalPosition.top && SwingPosition.y <= sudalPosition.top + sudalHeight)
+                ) {
+                    hit();
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
