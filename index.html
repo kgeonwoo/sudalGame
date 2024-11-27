@@ -16,6 +16,7 @@
     }
 
     #sudal {
+        width: 30%;
         position: absolute;
         left: 0px;
         top: 0px;
@@ -24,7 +25,7 @@
 
     #bbatta {
         position: absolute;
-        width: 300px;
+        width: 200px;
         aspect-ratio: 1/1;
         transition: transform 0.2s ease;
 
@@ -34,6 +35,33 @@
     #bbatta:active {
         transform: rotate(-90deg);
         transition: transform 0.1s ease;
+    }
+
+    /* 화면 너비가 768px 이하 (태블릿 및 모바일)일 때 적용 */
+    @media screen and (max-width: 768px) {
+
+        body {
+            position: relative;
+            width: 100vh;
+            height: 100vh;
+        }
+
+        #bbatta {
+            position: absolute;
+            width: 50px;
+            aspect-ratio: 1/1;
+            transition: transform 0.2s ease;
+
+            z-index: 1000;
+        }
+
+        #sudal {
+            width: 20%;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            transition: all 0.5s ease;
+        }
     }
 </style>
 
@@ -184,8 +212,8 @@
                 const mouseY = event.clientY;
 
                 $('#bbatta').css({
-                    left: `${mouseX-150}px`
-                    , top: `${mouseY-150}px`
+                    left: `${mouseX-($('#bbatta').width() * 2/3)}px`
+                    , top: `${mouseY-($('#bbatta').height() * 2/3)}px`
                 }, 1)
 
             })
@@ -203,8 +231,8 @@
                 const sudalHeight = $('#sudal').height();
 
                 SwingPosition = {
-                    x: `${mouseX-150}`
-                    , y: `${mouseY+150}`
+                    x: `${mouseX-($('#bbatta').width() * 2/3)}`
+                    , y: `${mouseY+($('#bbatta').height() * 2/3)}`
                 }
 
                 if (
