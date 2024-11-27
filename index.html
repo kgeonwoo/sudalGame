@@ -11,12 +11,12 @@
 <style>
     body {
         position: relative;
-        width: 1200px;
-        height: 540px;
+        width: 100vw;
+        height: 100vh;
     }
 
     #sudal {
-        width: 30%;
+        width: 20%;
         position: absolute;
         left: 0px;
         top: 0px;
@@ -42,13 +42,13 @@
 
         body {
             position: relative;
-            width: 100vh;
+            width: 100vw;
             height: 100vh;
         }
 
         #bbatta {
             position: absolute;
-            width: 50px;
+            width: 150px;
             aspect-ratio: 1/1;
             transition: transform 0.2s ease;
 
@@ -123,8 +123,8 @@
 
                 console.log("움직움직");
 
-                const randomX = Math.random() * 100;
-                const randomY = Math.random() * 100;
+                const randomX = Math.random() * 80;
+                const randomY = Math.random() * 80;
 
                 $('#sudal').css({
                     left: randomX + '%',
@@ -232,7 +232,7 @@
 
                 SwingPosition = {
                     x: `${mouseX-($('#bbatta').width() * 2/3)}`
-                    , y: `${mouseY+($('#bbatta').height() * 2/3)}`
+                    , y: `${mouseY+($('#bbatta').height() * 1/3)}`
                 }
 
                 if (
